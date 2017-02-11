@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ./partials/head %>
+  </head>
+  <body>
+    <div class="container">
+      
+      <header class="alert alert-info">
+        <h1 class="title"><%= title %></h1>
+        <p class="caption">Bienvenido, favor de incluir todos las locaciones en esta forma.</p>
+      </header>
+
+      <div class="row">
+        <div class="col-md-8">
+          <h2>Favor de llenar la forma:</h2>
+          <form action="/" method="post">
+            <div class="form-group">
+              <input type="text" name="name" placeholder="Nombre"><br><br>
+              <input type="text" name="type" placeholder="Subasta, yarda, etc.."><br><br>
+              <input type="text" name="phone_number" placeholder="Numero telefonico">
+              <button class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="resultsSection">
+      <h2>Localidades:</h2>
+        <% locations.forEach( function(location){ %>
+            <div class="card">
+              <div class="card-block">
+                <h4 class="card-title">
+                  <%= location.name %>
+                </h4>
+                <h6 class="card-subtitle mb-2 text-muted">
+                  <%= location.type %>
+                </h6>
+                <p class="card-text">
+                  <%= location.phone_number %>
+                </p>
+                <div class="row">
+                  <button class="btn btn-info" id="editButton">Editar</button><br>
+                  <div class="hide" id="editPane">
+                    <form action="<%= '/' + location.id + '?_method=PUT' %>" method="post" class="">
+                      <input type="text" name="name" placeholder="Nombre del local"><br>
+                      <input type="text" name="type" placeholder="Subasta, yarda, etc."><br>
+                      <input type="text" name="phone_number" placeholder="Numero telefonico"><br>
+                      <button class="btn btn-success" style="margin: 0 0 0 45%">Guardar</button>
+                    </form>
+                  </div>
+                  <form action=<%= '/' + location.id + '?_method=DELETE' %> method="post">
+                    <button class="btn btn-danger" class="danger">Borrar</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+        <% }); %>
+      </div>
+
+    </div>
+  </body>
+</html>
